@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Destination</title>
+		<meta charset="utf-8">
+		{% load staticfiles %}
+		<link href="{% static 'style.css' %}" rel="stylesheet">
+	</head>
+	<body>
+		<p id="links"><a href="/travels">Home</a> <a href="/logout">Logout</a>
+
+		<div class = "destination_view">
+
+			<h2>{{ destination_view.destination }}</h2>
+			<p>{{ destination_view.planned_by.name }}</p>
+			<p>{{ destination_view.description }}</p>
+			<p>{{ destination_view.start_date }}</p>
+			<p>{{ destination_view.end_date }}</p>
+		</div> 
+
+		<div class = "joiners">
+			<h2>Other users joining the trip:</h2>
+			{% for join in joiners %}
+			<p>{{ join.name }}</p>
+			{% endfor %}
+		</div>
+			
+	</body>
+</html>

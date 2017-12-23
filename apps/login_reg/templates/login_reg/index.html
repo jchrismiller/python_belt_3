@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Travel Buddy</title>
+		<meta charset="utf-8">
+		{% load staticfiles %}
+		<link href="{% static 'style.css' %}" rel="stylesheet">
+	</head>
+	<body>
+		<div id="wrapper">
+			<h1>Welcome!</h1>
+
+			<div id="register_pane">				
+				<form action = "/registration" method = "POST">
+
+					{% csrf_token %}
+					
+					<p>Name <input type="text" name="name" value =  "{{ request.session.first_name }}" ></p>
+					<p>Username <input type="text" name="username"></p>
+					<!-- <p>Email <input type="text" name="email"></p> -->
+					<p>Password <input type="text" name="password"></p>
+					<p>Confirm Pass <input type="text" name="confirm_password"></p>  					
+					<p><input type="submit" name = "register" value="Register"></p>
+					<p>
+				</p>
+				</form>
+			</div> <!-- end register_pane -->
+
+			<div class = 'login_pane'>
+				<h1>Login</h1>
+				<form action = "/login" method="POST">
+					
+					{% csrf_token %}
+					<p>Username <input type="text" name="username"></p>
+					<p>Password <input type="text" name="password"></p>
+					<p><input type="submit" name="login" value="Login"></p>
+				</form>
+			</div> <!-- end login -->
+
+			<div id="messages">
+				{% if messages %}
+				{% for message in messages %}
+				<p>{{ message }}</p>
+				{% endfor %}
+				{% endif %}
+			</div>
+
+
+		</div> <!-- end wrapper -->
+
+	</body>
+</html>

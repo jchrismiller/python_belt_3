@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Travel Dashboard</title>
+		<meta charset="utf-8">
+		{% load staticfiles %}
+		<link href="{% static 'style.css' %}" rel="stylesheet">
+	</head>
+	<body>
+		<div class = "main_left">
+		<p id = "links"><a href="/logout">Logout</a>
+		<p id = "welcome">Hello, {{ current_user.username }}! </p>
+			Your Trip Schedules
+
+		<table>
+			<thead>
+				<tr>
+					<th>Destination</th>
+					<th>Travel Start Date</th>
+					<th>Travel End Date</th>
+					<th>Plan</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for trip in trip_schedule %}
+				<tr>					
+					<td>{{ trip.destination }}</td>
+					<td>{{ trip.start_date }}</td>
+					<td>{{ trip.end_date }}</td>
+					<td>{{ trip.description }}</td>
+					{% endfor %}
+				</tr>
+			</tbody>
+		</table>
+
+		Other User's Travel Plans
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Destination</th>
+					<th>Travel Start Date</th>
+					<th>Trvel End Date</th>
+					<th>Do you want to join?</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for plan in other_plans %}
+				<tr><td>{{ plan.planned_by.name }}</td>
+				<form action = /destination/{{plan.id}} method="POST">	
+				{% csrf_token %}		
+					<td><a href="/destination/{{plan.id}}">{{ plan.destination }}</a></td>
+				</form>
+				{% csrf_token %}	
+					<td>{{ plan.start_date }}</td>
+					<td>{{ plan.end_date }}</td>
+				<form action = /join/{{plan.id}}>
+					<td><a href="/join">Join</a></td>
+					{% endfor %}
+				</form>
+				</tr>
+			</tbody>
+		</table>
+
+		<p id="links"><a href="/add_page">Add</a></p>
+	</body>
+</html>
